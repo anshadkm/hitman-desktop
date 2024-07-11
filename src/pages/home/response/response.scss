@@ -1,0 +1,12 @@
+.response {
+  padding-top: 1rem;
+  width: 100%;
+  &__status {
+    &__green {
+      color: green;
+    }
+    &__red {
+      color: red;
+    }
+  }
+}

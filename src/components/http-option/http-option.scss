@@ -1,0 +1,25 @@
+$color-get-method: #6bdd9a;
+$color-post-method: #ffe47e;
+$color-put-method: #74aef6;
+$color-patch-method: #c0a8e1;
+$color-delete-method: #f79a8e;
+$color-head-method: #6bdd9a;
+$color-options-method: #f15eb0;
+
+@mixin http-option($method, $color) {
+  &--#{$method} {
+    .ant-select-selector {
+      color: $color;
+    }
+  }
+}
+
+.http-option {
+  @include http-option(get, $color-get-method);
+  @include http-option(post, $color-post-method);
+  @include http-option(put, $color-put-method);
+  @include http-option(patch, $color-patch-method);
+  @include http-option(delete, $color-delete-method);
+  @include http-option(head, $color-head-method);
+  @include http-option(options, $color-options-method);
+}

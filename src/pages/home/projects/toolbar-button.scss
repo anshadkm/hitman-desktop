@@ -1,0 +1,39 @@
+.toolbar-button {
+  position: relative;
+  display: inline-block;
+  &__button {
+    //padding: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    color: black;
+    border-radius: 0;
+    padding: unset;
+    &--selected {
+      border-left: 4px solid lightblue;
+    }
+    &:focus,
+    &:focus-visible {
+      outline: unset;
+    }
+    &:hover {
+      border-color: transparent;
+      border-bottom: 1px solid lightblue;
+    }
+  }
+  &__tooltip {
+    font-size: x-small;
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    transform: translateX(-30%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    display: none;
+    //translate: -40%;
+  }
+  &:hover &__tooltip {
+    display: block;
+  }
+}

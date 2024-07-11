@@ -1,0 +1,10 @@
+.toolbar {
+  display: flex;
+  &__http-method {
+    padding-left: 0.5rem;
+  }
+  &__url {
+    flex: 1;
+    border-style: hidden;
+  }
+}

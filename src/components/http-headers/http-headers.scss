@@ -1,0 +1,23 @@
+.http-headers {
+  &__title {
+    font-size: small;
+  }
+  &__grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.http-header {
+  display: flex;
+  &__value {
+    width: 30%;
+  }
+  &__delete {
+    background-color: unset;
+    border: unset;
+    &:focus {
+      outline: unset;
+    }
+  }
+}

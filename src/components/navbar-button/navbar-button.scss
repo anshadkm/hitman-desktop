@@ -1,0 +1,36 @@
+.navbar-button {
+  position: relative;
+  display: inline-block;
+  &__button {
+    //padding: 10px;
+    cursor: pointer;
+    background-color: grey;
+    border-radius: 0 8px 8px 0;
+    border-left: 4px solid grey;
+    &--selected {
+      border-left: 4px solid lightblue;
+    }
+    &:focus,
+    &:focus-visible {
+      outline: unset;
+    }
+    &:hover {
+      border-color: transparent;
+      border-left: 4px solid lightblue;
+    }
+  }
+  &__tooltip {
+    position: absolute;
+    top: 20%;
+    left: 4.5rem;
+    //transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    display: none;
+  }
+  &:hover &__tooltip {
+    display: block;
+  }
+}

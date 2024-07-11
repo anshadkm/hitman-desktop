@@ -1,0 +1,35 @@
+{
+  "name": "hitman-desktop",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@tauri-apps/api": ">=2.0.0-beta.0",
+    "@tauri-apps/plugin-dialog": "2.0.0-beta.6",
+    "@tauri-apps/plugin-fs": "2.0.0-beta.6",
+    "@tauri-apps/plugin-http": "2.0.0-beta.7",
+    "@tauri-apps/plugin-shell": ">=2.0.0-beta.0",
+    "antd": "^5.19.1",
+    "events": "^3.3.0",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "split-pane-react": "^0.1.3"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": ">=2.0.0-beta.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "pouchdb-browser": "^8.0.1",
+    "pouchdb-find": "^8.0.1",
+    "sass": "^1.77.6",
+    "use-pouchdb": "^2.0.2",
+    "vite": "^5.3.1"
+  }
+}

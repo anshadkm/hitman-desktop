@@ -1,0 +1,11 @@
+.history-card {
+  font-size: x-small;
+  margin: 5px;
+  &__content {
+    display: flex;
+    align-items: center;
+  }
+  &__url {
+    word-wrap: break-word;
+  }
+}

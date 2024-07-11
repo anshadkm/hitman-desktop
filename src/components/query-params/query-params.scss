@@ -1,0 +1,22 @@
+.query-params {
+  &__title {
+    font-size: small;
+  }
+  &__grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.http-headers {
+  &__grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.query-param {
+  &__path-variable {
+    color: steelblue !important;
+  }
+}

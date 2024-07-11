@@ -1,0 +1,10 @@
+.side-navbar {
+  display: flex;
+  &__menu {
+    height: 100%;
+  }
+  &__side-panel {
+    flex: 1;
+    overflow-x: hidden;
+  }
+}

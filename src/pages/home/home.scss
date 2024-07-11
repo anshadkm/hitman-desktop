@@ -1,0 +1,10 @@
+.home {
+  display: flex;
+  padding: 4rem 3rem 3rem 3rem;
+  &__main-panel {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+}

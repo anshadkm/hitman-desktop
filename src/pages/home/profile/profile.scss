@@ -1,0 +1,15 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  &-card {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    &__name {
+      flex: 1;
+    }
+  }
+  &-list {
+    margin-right: 1rem;
+  }
+}
