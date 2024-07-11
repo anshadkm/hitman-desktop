@@ -24,6 +24,8 @@
         }
       ]
     },
-    "fs:default"
+    "fs:default",
+    "updater:default",
+    "log:default"
   ]
 }

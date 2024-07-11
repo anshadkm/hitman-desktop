@@ -1,6 +1,7 @@
 import { useAddHistory } from "../db/useHistory";
 import { useAddRequest } from "../db/useRequest";
 import { invoke } from "@tauri-apps/api/core";
+import { error } from "@tauri-apps/plugin-log";
 import { updatePathVariables, updateProfileProperties } from "../util/url-util";
 import { useDoc, useFind } from "use-pouchdb";
 import { updateHeaderWithProfileProperties } from "../util/header-util";
@@ -22,7 +23,7 @@ export const useServerRequest = () => {
   const { doc: profile } = useDoc(settings?.profile);
 
   const postRequest = async ({ url, method, contentType, headers, cookies, body }) => {
-    //headers = 'Content-Type: application/json';
+
     const requestPayload = {
       url,
       method,
@@ -33,20 +34,33 @@ export const useServerRequest = () => {
   }
 
   const sendRequest = async ({ id, entityType, method = 'get', url, contentType = 'application/json', headers = [], pathVariables = [], cookies = [], body = {}, tearDown }) => {
-    return await handleRemoteRequest({ id, entityType, method, url, headers, contentType, pathVariables, cookies, body, tearDown });
+    let response = {}
+    try {
+      response = await handleRemoteRequest({ id, entityType, method, url, headers, contentType, pathVariables, cookies, body, tearDown });
+    } catch(e) {
+      error(`Request failed ${e}`)
+      response = {status: "ERROR", body: e}
+    }
+    return response;
   }
 
-  const addContentType = (type, headers) => {
+  const getContentTypeHeader = (type, headers) => {
     let contentType = ['Content-Type', 'application/json']
     if (headers && headers['Content-Type']) {
       // Skip
     } else {
       switch (type) {
-        case 'Json':
+        case 'none':
+          contentType = undefined;
+          break;
+        case 'json':
           contentType = ['Content-Type', 'application/json'];
           break;
-        case 'Xml':
+        case 'xml':
           contentType = ['Content-Type', 'application/xml'];
+          break;
+        case 'text':
+          contentType = ['Content-Type', 'text/plain'];
           break;
       }
     }
@@ -55,7 +69,10 @@ export const useServerRequest = () => {
 
   const getHeaders = (_headers, contentType) => {
     _headers = updateHeaderWithProfileProperties(_headers, profile?.properties || []);
-    _headers.push(addContentType(contentType));
+    const contentTypeHeader = getContentTypeHeader(contentType);
+    if (contentTypeHeader) {
+      _headers.push(contentTypeHeader);
+    }
     return _headers;
   }
 

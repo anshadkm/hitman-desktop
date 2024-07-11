@@ -1,8 +1,10 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use log::{debug, LevelFilter};
 use reqwest::{Method, Proxy};
 use serde::{Deserialize, Serialize};
+use tauri_plugin_log::{fern::colors::ColoredLevelConfig, Target, TargetKind};
 
 #[derive(Deserialize, Debug)]
 struct RequestPayload {
@@ -22,9 +24,8 @@ struct ResponsePayload {
 
 #[tauri::command]
 async fn send_request(payload: RequestPayload) -> Result<ResponsePayload, String> {
-    println!("Sending request.... {:#?}", payload);
+    debug!("Sending request.... {:#?}", payload);
     let client_builder = reqwest::Client::builder();
-
     let client_builder = if let Some(proxy_url) = payload.proxy {
         client_builder.proxy(Proxy::http(&proxy_url).map_err(|e| e.to_string())?)
     } else {
@@ -60,8 +61,6 @@ async fn send_request(payload: RequestPayload) -> Result<ResponsePayload, String
         .collect();
 
     let body = response.text().await.map_err(|e| e.to_string())?;
-
-    //Ok(ResponsePayload { status, headers, body })
     Ok(ResponsePayload {
         status,
         headers,
@@ -69,21 +68,26 @@ async fn send_request(payload: RequestPayload) -> Result<ResponsePayload, String
     })
 }
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn greet(name: &str) -> String {
-    println!("Hello... ");
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
 fn main() {
-    println!("Starting....");
     tauri::Builder::default()
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                .targets([
+                    Target::new(TargetKind::Stdout),
+                    Target::new(TargetKind::LogDir { file_name: None }),
+                    Target::new(TargetKind::Webview),
+                ])
+                .with_colors(ColoredLevelConfig::default())
+                .level_for("tauri", LevelFilter::Warn)
+                .level(LevelFilter::Debug)
+                .build(),
+        )
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![greet, send_request])
+        .invoke_handler(tauri::generate_handler![send_request])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

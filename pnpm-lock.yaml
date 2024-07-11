@@ -23,9 +23,15 @@ importers:
       '@tauri-apps/plugin-http':
         specifier: 2.0.0-beta.7
         version: 2.0.0-beta.7
+      '@tauri-apps/plugin-log':
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       '@tauri-apps/plugin-shell':
         specifier: '>=2.0.0-beta.0'
         version: 2.0.0-beta.7
+      '@tauri-apps/plugin-updater':
+        specifier: 2.0.0-beta.6
+        version: 2.0.0-beta.6
       antd:
         specifier: ^5.19.1
         version: 5.19.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -583,8 +589,14 @@ packages:
   '@tauri-apps/plugin-http@2.0.0-beta.7':
     resolution: {integrity: sha512-mxdhcpPPT2oHm0FWe6HS2UbQW2LFTbAv2vExrTYAPJSuXOp2kisgOjazZtswYqpmftpcSZ4dFpmzNlQp188e/g==}
 
+  '@tauri-apps/plugin-log@2.0.0-beta.7':
+    resolution: {integrity: sha512-rdwvmIWv0alRGvG5mxUvSCeT4ovVp5zRaUhtd2372mPPQgYKpHk2nxlRFiGtpcP/MCv0cwXh+MDsceVJpQLtZQ==}
+
   '@tauri-apps/plugin-shell@2.0.0-beta.7':
     resolution: {integrity: sha512-oJxWbEiNRcoMM0PrePjJnjPHEAN1sbYuWaQ1QMtLPdjHsl83RLk+RpFzkL5WvtGknfiKY7T2qEthOID4br+mvg==}
+
+  '@tauri-apps/plugin-updater@2.0.0-beta.6':
+    resolution: {integrity: sha512-CKgVNsbpGPp8yIUWitszdQ2DVglRZ8jescxacJ43HkaI7oz26EQPL3VwPjjwIQ1RX166JQcNJuM8grcZd8QjBg==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1757,7 +1769,15 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.14
 
+  '@tauri-apps/plugin-log@2.0.0-beta.7':
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.14
+
   '@tauri-apps/plugin-shell@2.0.0-beta.7':
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.14
+
+  '@tauri-apps/plugin-updater@2.0.0-beta.6':
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.14
 

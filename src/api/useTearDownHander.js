@@ -1,3 +1,4 @@
+import { error } from "@tauri-apps/plugin-log";
 import { useDoc, useFind } from "use-pouchdb";
 import { useProfile } from "../db/useProfile";
 
@@ -23,8 +24,12 @@ export const useTearDownHandler = () => {
     const api = { setProfileProperty }
 
     const tearDown = async ({ script, request, response }) => {
-        const fn = new Function(['api', 'request', 'response', 'profile'], script);
-        return fn(api, request, response, profile);
+        try {
+            const fn = new Function(['api', 'request', 'response', 'profile'], script);
+            return fn(api, request, response, profile);
+        } catch(e) {
+            error(`Error while running tear down script, ${e}`);
+        }
     }
     return { tearDown }
 }

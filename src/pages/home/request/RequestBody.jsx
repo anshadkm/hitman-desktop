@@ -5,9 +5,10 @@ import { Input, Radio } from "antd";
 
 const RequestBody = ({ body, setBody, contentType, setContentType }) => {
   const options = [
-    { value: "Json", label: "Json" },
-    { value: "XML", label: "XML" },
-    { value: "Text", label: "Text" },
+    { value: "none", label: "none" },
+    { value: "json", label: "Json" },
+    { value: "xml", label: "XML" },
+    { value: "text", label: "Text" },
   ];
 
   const [selectedInput, setSelectedInput] = useState(options[0].value);
