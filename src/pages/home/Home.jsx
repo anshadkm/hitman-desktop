@@ -1,24 +1,25 @@
-import Response from "./response/Response";
 import "./home.scss";
 import { useState } from "react";
 import SideNavbar from "../../components/side-navbar/SideNavbar";
-import { Layout, Tabs, theme } from "antd";
-import SplitPane from "split-pane-react/esm/SplitPane";
+import { Button, Layout, Tabs, theme } from "antd";
 import "split-pane-react/esm/themes/default.css";
-import { Pane, SashContent } from "split-pane-react";
 import ProfileList from "./profile-list/ProfileList";
-import RequestPane from "./request/RequestPane";
 import HttpRequestPanel from "./http-request-panel/HttpRequestPanel";
 import ProfilePanel from "./profile-panel/ProfilePanel";
+import { ExportOutlined, ImportOutlined } from "@ant-design/icons";
+import { Space } from "antd";
+import { useExportData } from "../../api/useExportData";
 
 const Home = () => {
-  
+
   const [collapsed, setCollapsed] = useState(false);
   const [selectedSidePanel, setSelectedSidePanel] = useState("0");
   const [selectedRequest, setSelectedRequest] = useState();
-  
+
   const [mainTabs, setMainTabs] = useState([]);
   const [activeKey, setActiveKey] = useState();
+
+  const { exportData } = useExportData();
 
   const {
     token: { colorBgContainer, colorBorder, colorBgElevated },
@@ -75,20 +76,20 @@ const Home = () => {
   const onSideNavSelectionChanged = (selectedItem) => {
     //setSelectedRequest(request);
     //mainTabs.find(tab => tab.key === request.url)
-    
-    let  tab = {};
+
+    let tab = {};
     /* tabs for projects and history */
     if (selectedSidePanel === "0" || selectedSidePanel === "1") {
       tab = {
         label: getTrimmedName(selectedItem.url),
-        children: <HttpRequestPanel selectedSidePanel={selectedSidePanel} selectedRequest={selectedItem}/>,
+        children: <HttpRequestPanel selectedSidePanel={selectedSidePanel} selectedRequest={selectedItem} />,
         key: selectedSidePanel,
       };
     } else {
       /* tabs for profile selection */
       tab = {
         label: `Profile - ${selectedItem.name}`,
-        children: <ProfilePanel profile={selectedItem}/>,
+        children: <ProfilePanel profile={selectedItem} />,
         key: selectedSidePanel,
       }
     }
@@ -96,7 +97,7 @@ const Home = () => {
     if (tabIndex === -1) {
       setMainTabs([...mainTabs, tab])
     } else {
-        setMainTabs(mainTabs.toSpliced(tabIndex, 1, tab));
+      setMainTabs(mainTabs.toSpliced(tabIndex, 1, tab));
     }
     setActiveKey(selectedSidePanel);
   };
@@ -114,9 +115,14 @@ const Home = () => {
           alignItems: "center",
           background: colorBgContainer,
           height: 50,
+          gap: 5
         }}
       >
         <ProfileList />
+        <Space.Compact>
+          <Button icon={<ExportOutlined />} onClick={() => exportData()}>Export</Button>
+          <Button icon={<ImportOutlined />}>Import</Button>
+        </Space.Compact>
       </Layout.Header>
       <Layout style={{ height: "calc(100vh - 80px)" }}>
         <Layout.Sider
@@ -127,8 +133,8 @@ const Home = () => {
           <SideNavbar onChange={handleSideNavChanged} onSelectionChanged={onSideNavSelectionChanged} />
         </Layout.Sider>
         <Layout.Content>
-          <Tabs items={mainTabs} type="editable-card" hideAdd onEdit={onEdit} 
-            activeKey={activeKey} onChange={onChange} size="small" indicator={{size: 5}}/>
+          <Tabs items={mainTabs} type="editable-card" hideAdd onEdit={onEdit}
+            activeKey={activeKey} onChange={onChange} size="small" indicator={{ size: 5 }} />
         </Layout.Content>
       </Layout>
       <Layout.Footer

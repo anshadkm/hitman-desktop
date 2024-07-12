@@ -1,4 +1,5 @@
 import { error } from "@tauri-apps/plugin-log";
+import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/plugin-notification'
 import { useDoc, useFind } from "use-pouchdb";
 import { useProfile } from "../db/useProfile";
 
@@ -27,8 +28,14 @@ export const useTearDownHandler = () => {
         try {
             const fn = new Function(['api', 'request', 'response', 'profile'], script);
             return fn(api, request, response, profile);
-        } catch(e) {
+        } catch (e) {
             error(`Error while running tear down script, ${e}`);
+            let permissionGranted = await isPermissionGranted();
+            if (!permissionGranted) {
+                const permission = await requestPermission();
+                permissionGranted = permission === 'granted';
+            }
+            sendNotification({ title: "Error in tear down script", body: `${e}`, icon: "Caution" });
         }
     }
     return { tearDown }

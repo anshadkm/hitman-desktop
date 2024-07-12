@@ -70,6 +70,7 @@ async fn send_request(payload: RequestPayload) -> Result<ResponsePayload, String
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_notification::init())
         .plugin(
             tauri_plugin_log::Builder::new()
                 .targets([
