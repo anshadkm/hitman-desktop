@@ -3,19 +3,17 @@ import PropTypes from "prop-types";
 import HistoryCard from "../../../components/history-card/HistoryCard";
 import "./history.scss";
 
-const History = ({ onRequestSelectionChanged }) => {
-  /*const { rows } = useAllDocs({
-    include_docs: true, // Load all document bodies
-  });*/
-
+const History = ({ onRequestSelect }) => {
+  
   const { docs: rows } = useFind({
     selector: {
       type: "history",
     },
+    sort: [{'_id': 'desc'}]
   });
 
   const applyHistory = (history) => {
-    onRequestSelectionChanged(history);
+    onRequestSelect(history);
   };
 
   return (
@@ -28,7 +26,7 @@ const History = ({ onRequestSelectionChanged }) => {
 };
 
 History.propTypes = {
-  onRequestSelectionChanged: PropTypes.func,
+  onRequestSelect: PropTypes.func,
 };
 
 export default History;

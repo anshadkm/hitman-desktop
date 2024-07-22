@@ -54,8 +54,9 @@ const ProjectName = ({ className, children, name, _id }) => {
   const addOrUpdateProject = useAddProject();
   const addRequest = useAddRequest();
 
-  const addNewRequest = () =>
+  const addNewRequest = () => {
     addRequest({ projectId: _id, method: "get", url: "http://hitman/api" });
+  }
 
   const toggleExpansion = () => {
     setExpanded(!isExpanded);

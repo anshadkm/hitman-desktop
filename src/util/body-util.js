@@ -4,6 +4,12 @@
  * @param {*} properties Array of properties [{name: baseUrl, value: http://localhost}]
  */
 const updateBodyWithProfileProperties = (body, properties) => {
+
+  if (body === undefined) {
+    return body;
+  } else if (typeof body === "object") {
+    body = JSON.stringify(body);
+  }
   const regex = /{{([\w\d-_]+)}}/g;
   const matches = body?.match(regex);
 

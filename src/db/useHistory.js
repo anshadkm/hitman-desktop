@@ -18,8 +18,24 @@ export const useAddHistory = () => {
         body,
       };
       const result = await db.put(doc);
+      cleanUp(db);
       return result;
     },
     [db],
   );
 };
+
+/**
+ * Keep only last 10 requests
+ * @param {*} db 
+ */
+const cleanUp = async (db) => {
+  const existing = await db.find({
+    selector: { type: "history" },
+    fields: ["_id", "_rev"],
+    sort: [{"_id": "desc"}]
+  });
+  for(let i = 10; i < existing.docs.length; i++) {
+    db.remove(existing.docs[i]._id, existing.docs[i]._rev);
+  }
+}

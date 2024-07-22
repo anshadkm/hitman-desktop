@@ -9,6 +9,7 @@ import ProfilePanel from "./profile-panel/ProfilePanel";
 import { ExportOutlined, ImportOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 import { useExportData } from "../../api/useExportData";
+import { useImportData } from "../../api/useImportData";
 
 const Home = () => {
 
@@ -20,6 +21,7 @@ const Home = () => {
   const [activeKey, setActiveKey] = useState();
 
   const { exportData } = useExportData();
+  const { importData } = useImportData();
 
   const {
     token: { colorBgContainer, colorBorder, colorBgElevated },
@@ -121,7 +123,7 @@ const Home = () => {
         <ProfileList />
         <Space.Compact>
           <Button icon={<ExportOutlined />} onClick={() => exportData()}>Export</Button>
-          <Button icon={<ImportOutlined />}>Import</Button>
+          <Button icon={<ImportOutlined />} onClick={() => importData()}>Import</Button>
         </Space.Compact>
       </Layout.Header>
       <Layout style={{ height: "calc(100vh - 80px)" }}>

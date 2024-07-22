@@ -10,6 +10,7 @@ import {
   IdcardOutlined,
 } from "@ant-design/icons";
 import Profiles from "../../pages/home/profile/Profiles";
+import Histories from "../../pages/home/history/Histories";
 
 const SideNavbar = ({ onChange, onSelectionChanged }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -34,7 +35,7 @@ const SideNavbar = ({ onChange, onSelectionChanged }) => {
     if (selectedIndex == "0") {
       return <Projects onRequestSelect={onSelectionChanged} />;
     } else if (selectedIndex == "1") {
-      return <History onRequestSelectionChanged={onSelectionChanged} />;
+      return <Histories onRequestSelect={onSelectionChanged} />;
     } else if (selectedIndex == "2") {
       return <Profiles onProfileChanged={onSelectionChanged} />;
     }

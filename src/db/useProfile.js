@@ -46,20 +46,3 @@ const findByName = async (db, name) => {
     return existing.docs.find((doc) => doc.name === name);
   }
 };
-
-/*
-123750
- 93750
-******
-
-138500 / 58  = 2387
-===================
-
-1,45,000
-  35,000
-
-78
-
- 9 +
-70.2
-*/
